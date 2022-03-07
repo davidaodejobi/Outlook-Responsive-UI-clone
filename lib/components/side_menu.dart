@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:responsive_ui_design/responsive.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 import '../constants.dart';
@@ -20,9 +21,17 @@ class SideMenu extends StatelessWidget {
       color: kBgLightColor,
       child: Column(
         children: [
-          Image.asset(
-            "assets/images/Logo Outlook.png",
-            width: 46,
+          Row(
+            children: [
+              Image.asset(
+                "assets/images/Logo Outlook.png",
+                width: 46,
+              ),
+              const Spacer(),
+              // ignore: prefer_const_constructors
+              // this is telling the code not to show the close button if the screen is large(desktop)
+              if (!Responsive.isDesktop(context)) CloseButton(),
+            ],
           ),
           const SizedBox(height: kDefaultPadding),
           FlatButton.icon(

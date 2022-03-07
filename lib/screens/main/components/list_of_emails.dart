@@ -1,38 +1,65 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_ui_design/components/side_menu.dart';
 import '../../../models/email.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
 import '../../../constants.dart';
 import 'email_card.dart';
 
-class ListOfEmails extends StatelessWidget {
+class ListOfEmails extends StatefulWidget {
   const ListOfEmails({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<ListOfEmails> createState() => _ListOfEmailsState();
+}
+
+class _ListOfEmailsState extends State<ListOfEmails> {
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: ConstrainedBox(
+          //here we are constraining the drawer to be 250px
+          constraints: const BoxConstraints(maxWidth: 250),
+          child: const SideMenu()),
       body: Container(
         padding: const EdgeInsets.all(kDefaultPadding),
         color: kBgDarkColor,
         child: Column(
           children: [
-            TextField(
-              onChanged: (value) {},
-              decoration: InputDecoration(
-                hintText: "Search",
-                fillColor: kBgLightColor,
-                filled: true,
-                suffixIcon: WebsafeSvg.asset(
-                  "assets/Icons/Search.svg",
-                  width: 24,
+            Row(
+              children: [
+                IconButton(
+                  onPressed: () {
+                    _scaffoldKey.currentState!.openDrawer();
+                  },
+                  icon: const Icon(
+                    Icons.menu,
+                  ),
                 ),
-                border: const OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  borderSide: BorderSide.none,
+                const SizedBox(width: kDefaultPadding / 4),
+                Expanded(
+                  child: TextField(
+                    onChanged: (value) {},
+                    decoration: InputDecoration(
+                      hintText: "Search",
+                      fillColor: kBgLightColor,
+                      filled: true,
+                      suffixIcon: WebsafeSvg.asset(
+                        "assets/Icons/Search.svg",
+                        width: 24,
+                      ),
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
             const SizedBox(height: kDefaultPadding),
             Row(

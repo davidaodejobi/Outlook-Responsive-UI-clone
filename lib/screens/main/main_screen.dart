@@ -12,9 +12,7 @@ class MainScreen extends StatelessWidget {
     Size _size = MediaQuery.of(context).size;
     return Scaffold(
         body: Responsive(
-      mobile: Container(
-        color: Colors.teal,
-      ),
+      mobile: const ListOfEmails(),
       tablet: Row(
         children: const [
           Expanded(
